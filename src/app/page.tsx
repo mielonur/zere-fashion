@@ -25,18 +25,18 @@ interface Review {
 }
 
 const categories = [
-  { name: 'Көйлектер', slug: 'koylekter', emoji: '👗', count: '24+ үлгі' },
-  { name: 'Блузалар', slug: 'bluzalar', emoji: '👚', count: '18+ үлгі' },
-  { name: 'Шалбарлар', slug: 'shalbalar', emoji: '👖', count: '15+ үлгі' },
-  { name: 'Пальтолар', slug: 'paltolar', emoji: '🧥', count: '12+ үлгі' },
+  { name: 'Көйлектер', slug: 'koylekter', image: '/images/dress1.jpg', count: '24+ үлгі' },
+  { name: 'Блузалар', slug: 'bluzalar', image: '/images/blouse1.jpg', count: '18+ үлгі' },
+  { name: 'Шалбарлар', slug: 'shalbalar', image: '/images/pants1.jpg', count: '15+ үлгі' },
+  { name: 'Пальтолар', slug: 'paltolar', image: '/images/coat1.jpg', count: '12+ үлгі' },
 ];
 
-const categoryColors = [
-  'linear-gradient(135deg, #2a1a0a 0%, #1a0e05 100%)',
-  'linear-gradient(135deg, #0a1a2a 0%, #051015 100%)',
-  'linear-gradient(135deg, #1a0a2a 0%, #0e0515 100%)',
-  'linear-gradient(135deg, #0a1a0a 0%, #051005 100%)',
-];
+const productImages: Record<string, string> = {
+  koylekter: '/images/dress1.jpg',
+  bluzalar: '/images/blouse1.jpg',
+  shalbalar: '/images/pants1.jpg',
+  paltolar: '/images/coat1.jpg',
+};
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -136,19 +136,11 @@ export default function HomePage() {
           <div className="hero-visual">
             <div className="hero-badge">Жаңа ★</div>
             <div className="hero-image-wrap">
-              {/* Fashion illustration placeholder */}
-              <div style={{
-                width: '100%', height: '100%',
-                background: 'linear-gradient(160deg, #1c1712 0%, #0a0806 40%, #13100d 100%)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexDirection: 'column', gap: 16, color: 'var(--color-text-muted)',
-                fontSize: '5rem', letterSpacing: '-4px'
-              }}>
-                <span style={{ fontSize: '6rem' }}>👗</span>
-                <span style={{ fontSize: '0.85rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}>
-                  Zere Collection
-                </span>
-              </div>
+              <img
+                src="/images/dress1.jpg"
+                alt="Zere Fashion коллекциясы"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
             </div>
             <div className="hero-tag-card">
               <div>
@@ -169,16 +161,14 @@ export default function HomePage() {
           <p className="section-subtitle">Сіздің стиліңізге сай киімді таңдаңыз</p>
 
           <div className="category-grid">
-            {categories.map((cat, i) => (
+            {categories.map((cat) => (
               <Link key={cat.slug} href={`/products?category=${cat.slug}`} className="category-card">
-                <div style={{
-                  width: '100%', height: '100%',
-                  background: categoryColors[i],
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '5rem'
-                }}>
-                  {cat.emoji}
-                </div>
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="category-img"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
                 <div className="category-overlay">
                   <div className="category-name">{cat.name}</div>
                   <div className="category-count">{cat.count}</div>
@@ -226,16 +216,11 @@ export default function HomePage() {
               products.map(product => (
                 <div key={product.id} className="product-card">
                   <div className="product-img-wrap">
-                    <div style={{
-                      width: '100%', height: '100%',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: '5rem', background: 'var(--color-surface-2)',
-                      flexDirection: 'column', gap: 8
-                    }}>
-                      {product.category_slug === 'koylekter' ? '👗'
-                        : product.category_slug === 'bluzalar' ? '👚'
-                        : product.category_slug === 'shalbalar' ? '👖' : '🧥'}
-                    </div>
+                    <img
+                      src={productImages[product.category_slug] || '/images/dress1.jpg'}
+                      alt={product.name}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                     <div className="product-actions-overlay">
                       <button className="product-quick-add" onClick={(e) => { e.preventDefault(); addToCart(product); }}>
                         <ShoppingBag size={14} weight="fill" /> Себетке

@@ -23,9 +23,17 @@ const categories = [
   { name: 'Пальтолар', slug: 'paltolar' },
 ];
 
-const emojiMap: Record<string, string> = {
-  koylekter: '👗', bluzalar: '👚', shalbalar: '👖', paltolar: '🧥',
+const productImageMap: Record<string, string[]> = {
+  koylekter: ['/images/dress1.jpg', '/images/dress2.jpg'],
+  bluzalar: ['/images/blouse1.jpg', '/images/blouse2.jpg'],
+  shalbalar: ['/images/pants1.jpg', '/images/pants2.jpg'],
+  paltolar: ['/images/coat1.jpg', '/images/coat2.jpg'],
 };
+
+function getProductImage(slug: string, id: number): string {
+  const imgs = productImageMap[slug] || ['/images/dress1.jpg'];
+  return imgs[id % imgs.length];
+}
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat('kk-KZ').format(price);
@@ -110,13 +118,11 @@ function ProductsContent() {
           {products.map(product => (
             <div key={product.id} className="product-card" style={{ cursor: 'default' }}>
               <div className="product-img-wrap">
-                <div style={{
-                  width: '100%', height: '100%',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '5rem', background: 'var(--color-surface-2)',
-                }}>
-                  {emojiMap[product.category_slug] || '👗'}
-                </div>
+                <img
+                  src={getProductImage(product.category_slug, product.id)}
+                  alt={product.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
                 <div className="product-actions-overlay">
                   <button
                     className="product-quick-add"
