@@ -88,7 +88,7 @@ export default function ProfilePage() {
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '60px 24px' }}>
       {/* Profile Header */}
       <div style={{
-        background: 'var(--color-surface)',
+        background: 'linear-gradient(135deg, var(--color-surface) 0%, rgba(212,175,122,0.03) 100%)',
         border: '1px solid var(--color-border)',
         borderRadius: 24,
         padding: '40px',
@@ -97,7 +97,6 @@ export default function ProfilePage() {
         alignItems: 'center',
         gap: 32,
         flexWrap: 'wrap',
-        background: 'linear-gradient(135deg, var(--color-surface) 0%, rgba(212,175,122,0.03) 100%)',
       } as React.CSSProperties}>
         <div style={{
           width: 100, height: 100, borderRadius: '50%',
