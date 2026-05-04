@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   House, ShoppingBag, User, List, X, SignOut,
-  Gear, Tag, ChatText
+  Gear, Tag, ChatText, Moon, Sun
 } from '@phosphor-icons/react';
 import '@/styles/header.css';
 
@@ -22,6 +22,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [user, setUser] = useState<CurrentUser | null>(null);
+  const [isDark, setIsDark] = useState(true);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -40,6 +41,30 @@ export default function Header() {
       })
       .catch(() => setUser(null));
   }, [pathname]);
+
+  // Read saved theme on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('zere-theme');
+    const isLight = saved === 'light';
+    setIsDark(!isLight);
+    if (isLight) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newIsDark = !isDark;
+    setIsDark(newIsDark);
+    if (newIsDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('zere-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('zere-theme', 'light');
+    }
+  };
 
   const handleLogout = async () => {
     await fetch('/api/auth/me', { method: 'POST' });
@@ -63,16 +88,12 @@ export default function Header() {
     <>
       <header className={`header${scrolled ? ' scrolled' : ''}`}>
         <div className="header-inner">
-          {/* B1: Логотип */}
+          {/* Логотип */}
           <Link href="/" className="logo">
-            <div className="logo-icon">Z</div>
-            <div className="logo-text">
-              <span className="logo-name">Zere Fashion</span>
-              <span className="logo-tagline">Сән мен стиль</span>
-            </div>
+            <img src="/logo.png" alt="Zere Fashion" className="logo-img" />
           </Link>
 
-          {/* B1: Меню */}
+          {/* Меню */}
           <nav className="nav">
             {navLinks.map(link => (
               <Link
@@ -87,6 +108,20 @@ export default function Header() {
 
           {/* Действия */}
           <div className="header-actions">
+            {/* Theme toggle */}
+            <button
+              id="theme-toggle-btn"
+              className="icon-btn theme-toggle"
+              onClick={toggleTheme}
+              title={isDark ? 'Жарық режим' : 'Қараңғы режим'}
+              aria-label="Тақырыпты ауыстыру"
+            >
+              {isDark
+                ? <Sun size={20} weight="fill" />
+                : <Moon size={20} weight="fill" />
+              }
+            </button>
+
             <Link href="/cart" className="icon-btn" title="Себет">
               <ShoppingBag size={20} />
             </Link>
@@ -158,6 +193,14 @@ export default function Header() {
             {link.label}
           </Link>
         ))}
+        {/* Mobile theme toggle */}
+        <button
+          className="mobile-nav-link mobile-theme-btn"
+          onClick={() => { toggleTheme(); setMobileOpen(false); }}
+        >
+          {isDark ? <Sun size={16} weight="fill" /> : <Moon size={16} weight="fill" />}
+          {isDark ? 'Жарық режим' : 'Қараңғы режим'}
+        </button>
         {!user && (
           <>
             <Link href="/login" className="mobile-nav-link" onClick={() => setMobileOpen(false)}>Кіру</Link>

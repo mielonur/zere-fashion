@@ -16,11 +16,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="footer-brand">
           <div className="footer-logo">
-            <div className="footer-logo-icon">Z</div>
-            <div>
-              <div className="footer-brand-name">Zere Fashion</div>
-              <div className="footer-brand-tag">Сән мен стиль</div>
-            </div>
+            <img src="/logo.png" alt="Zere Fashion" className="footer-logo-img" />
           </div>
           <p className="footer-desc">
             Зере Fashion — қазақстандық әйелдерге арналған сән-сәнді киім брендi.
@@ -90,7 +86,7 @@ export default function Footer() {
               <MapPin size={16} weight="fill" className="footer-contact-icon" />
               <div>
                 <span className="footer-contact-label">Мекен-жай</span>
-                <span className="footer-contact-val">Алматы қ., Абай даңғылы 150</span>
+                <span className="footer-contact-val">Түркістан қаласы, Мусабаев 27</span>
               </div>
             </div>
             <div className="footer-contact-item">
@@ -103,7 +99,7 @@ export default function Footer() {
           </div>
           {/* Местоположение */}
           <a
-            href="https://maps.google.com/?q=Almaty,Kazakhstan"
+            href="https://maps.app.goo.gl/XqVPUhEqCGcQ5j297"
             target="_blank"
             rel="noopener noreferrer"
             className="footer-map"

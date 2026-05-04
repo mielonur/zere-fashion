@@ -97,7 +97,7 @@ export default function HomePage() {
           <div className="hero-text">
             <div className="hero-eyebrow">
               <Sparkle size={14} weight="fill" />
-              Жаңа коллекция 2024
+              Жаңа коллекция 2026
             </div>
             <h1 className="hero-title">
               Сіздің <span>стиліңіз</span> —<br />
@@ -145,7 +145,7 @@ export default function HomePage() {
             <div className="hero-tag-card">
               <div>
                 <div className="hero-tag-name">Жазғы коллекция</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>2024 жылдың тренді</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>2026 жылдың тренді</div>
               </div>
               <div className="hero-tag-price">бастап 9 800 ₸</div>
             </div>

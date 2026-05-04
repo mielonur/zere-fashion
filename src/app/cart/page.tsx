@@ -49,6 +49,17 @@ export default function CartPage() {
 
   const total = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
 
+  const handleWhatsAppOrder = () => {
+    const phone = '87057220108';
+    const itemsList = items
+      .map(i => `• ${i.name} × ${i.quantity} — ${formatPrice(i.price * i.quantity)} ₸`)
+      .join('\n');
+    const message =
+      `Сәлеметсіз бе! Мен Zere Fashion сайтынан келіп тұрмын:\n\n${itemsList}\n\nЖиыны: ${formatPrice(total)} ₸`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
+
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: '60px 24px' }}>
       <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.8rem', marginBottom: 8 }}>Себет</h1>
@@ -116,7 +127,7 @@ export default function CartPage() {
               <span>Жиыны</span>
               <span style={{ color: 'var(--color-gold)' }}>{formatPrice(total)} ₸</span>
             </div>
-            <button id="checkout-btn" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', padding: 14 }}>
+            <button id="checkout-btn" onClick={handleWhatsAppOrder} className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', padding: 14 }}>
               Тапсырыс беру <ArrowRight size={16} />
             </button>
           </div>

@@ -24,35 +24,12 @@
 .footer-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
 }
 
-.footer-logo-icon {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: var(--color-bg);
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.footer-brand-name {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  color: var(--color-text);
-}
-
-.footer-brand-tag {
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-gold);
+.footer-logo-img {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
 }
 
 .footer-desc {
