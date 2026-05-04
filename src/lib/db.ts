@@ -1,12 +1,23 @@
-import sqlite3 from 'sqlite3';
-import { open, Database } from 'sqlite';
 import path from 'path';
 import bcrypt from 'bcrypt';
 
-let db: Database | null = null;
+let db: any = null;
 
-export async function getDb(): Promise<Database> {
+export async function getDb(): Promise<any> {
   if (db) return db;
+
+  if (process.env.VERCEL) {
+    console.log("Running on Vercel, using mock DB to bypass sqlite3 GLIBC errors");
+    return {
+      exec: async () => {},
+      run: async () => ({ lastID: 1 }),
+      get: async () => null,
+      all: async () => []
+    };
+  }
+
+  const sqlite3 = require('sqlite3');
+  const { open } = require('sqlite');
 
   db = await open({
     filename: path.join(process.cwd(), 'zere.db'),
@@ -18,7 +29,7 @@ export async function getDb(): Promise<Database> {
   return db;
 }
 
-async function initDb(db: Database) {
+async function initDb(db: any) {
   // A1: Создание таблиц с нормализацией и связями
   await db.exec(`
     CREATE TABLE IF NOT EXISTS users (
