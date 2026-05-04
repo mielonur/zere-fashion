@@ -46,6 +46,7 @@ export default function Header() {
   useEffect(() => {
     const saved = localStorage.getItem('zere-theme');
     const isLight = saved === 'light';
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsDark(!isLight);
     if (isLight) {
       document.documentElement.setAttribute('data-theme', 'light');

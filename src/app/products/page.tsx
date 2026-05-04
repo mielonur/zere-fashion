@@ -46,6 +46,7 @@ function ProductsContent() {
   const selectedCat = searchParams.get('category') || '';
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     const url = selectedCat ? `/api/products?category=${selectedCat}` : '/api/products';
     fetch(url)

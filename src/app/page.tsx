@@ -312,7 +312,7 @@ export default function HomePage() {
               reviews.map(review => (
                 <div key={review.id} className="review-card">
                   <StarRating rating={review.rating} />
-                  <p className="review-content">"{review.content}"</p>
+                  <p className="review-content">&quot;{review.content}&quot;</p>
                   <div className="review-author">
                     <div className="review-avatar">
                       {getInitials(review.full_name, review.username)}

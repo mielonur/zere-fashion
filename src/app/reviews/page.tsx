@@ -53,18 +53,18 @@ export default function ReviewsPage() {
   const [loading, setLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
+  const fetchReviews = async () => {
+    const res = await fetch('/api/reviews');
+    const data = await res.json();
+    if (data.success) setReviews(data.data);
+  };
+
   useEffect(() => {
     fetchReviews();
     fetch('/api/auth/me')
       .then(r => r.json())
       .then(d => setIsLoggedIn(d.success));
   }, []);
-
-  const fetchReviews = async () => {
-    const res = await fetch('/api/reviews');
-    const data = await res.json();
-    if (data.success) setReviews(data.data);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
